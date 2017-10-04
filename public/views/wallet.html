@@ -27,9 +27,14 @@
         </thead>
         <tbody>
           <tr ng-repeat='wallet in wallets'>
-            <td><a href='https://ropsten.etherscan.io/address/{{wallet.walletAddress}}' target="_blank">{{wallet.walletAddress}}</a></td>
-            <td>{{wallet.balance}}</td>
-            <td>{{wallet.numberOfConfirmationsRequired}}</td>
+            <td ng-show='wallet.walletAddress'><a href='https://ropsten.etherscan.io/address/{{wallet.walletAddress}}' target="_blank">{{wallet.walletAddress}}</a></td>
+            <td ng-hide='wallet.walletAddress'>
+              <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> awaiting confirmation ...
+              <br />
+              Transaction: <a href='https://ropsten.etherscan.io/tx/{{wallet.txHash}}' target="_blank">{{wallet.txHash}}</a>
+            </td>
+            <td>{{!isNaN(wallet.balance) ? wallet.balance: 'N/A'}}</td>
+            <td>{{!isNaN(wallet.numberOfConfirmationsRequired) ? wallet.numberOfConfirmationsRequired: 'N/A'}}</td>
           </tr>
         </tbody>
       </table>
