@@ -7,7 +7,7 @@ function WalletController ($scope, toaster, Wallet) {
   
   // This function creates a new wallet
   $scope.createNewWallet = function () {
-    var toastInstance = toaster.pop({type: 'wait', title: 'Creating wallet ...', timeout: 0});
+    var toastInstance = toaster.pop({type: 'wait', title: 'Creating wallet ...', body: 'It may a take while as we confirm the transaction ...', timeout: 0});
     Wallet.create()
       .then(function (response) {
         // Add this new wallet to the top of the array
