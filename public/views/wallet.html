@@ -1,0 +1,42 @@
+<div>
+  <div>
+    This is a demo application that creates a 2-3 multisig wallet. A multi sig wallet generally has m owners (in this case 3) and requires atleast n owners (in this case 2) approval for any trasactions to be approved.
+  </div>
+  <br/><br/>
+  <div>
+    <div class='pull-right'>
+      <button class='btn btn-primary' ng-click='createNewWallet()'><i class="fa fa-plus" aria-hidden="true"></i>
+ New Wallet</div>
+    </div>
+    <div class='clearfix'></div>
+  </div>
+  <div class='wallets-list-container'>
+    <div ng-show='status==="Loading"'>
+      <i class="fa fa-spinner fa-spin fa-3x" aria-hidden="true"></i>
+      <br/><br/>
+      Fetching wallets ...
+    </div>
+    <div ng-show='status==="Loaded"'>
+      <table class='table table-striped table-bordered text-left'>
+        <thead>
+          <tr>
+            <th>Transaction</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='wallet in wallets'>
+            <td><a href='https://ropsten.etherscan.io/tx/{{wallet.hash}}' target="_blank">{{wallet.hash}}</a></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div ng-show='status==="LoadedNoData"'>
+      {{statusMessage}}
+    </div>
+    <div ng-show='status==="Error"'>
+      {{statusMessage}}
+    </div>
+  </div>
+</div>

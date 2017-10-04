@@ -1,0 +1,10 @@
+body {
+  padding-top: 50px;
+}
+.page-container {
+  padding: 40px 15px;
+}
+.wallets-list-container {
+  margin-top: 24px;
+  text-align: center;
+}
