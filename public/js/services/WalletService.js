@@ -1,12 +1,18 @@
 angular
   .module('multiSigWallet')
   .factory('Wallet', ['$http', function ($http) {
-  return {
-    all: function () {
-      return $http.get('https://multisig-api.herokuapp.com/wallets');
-    },
-    create: function () {
-      return $http.post('https://multisig-api.herokuapp.com/wallet');
+    var baseURL = "https://multisig-api.herokuapp.com";
+    //var baseURL = "http://localhost:8080";
+    
+    return {
+      all: function () {
+        return $http.get(baseURL+'/wallets');
+      },
+      create: function () {
+        return $http.post(baseURL+'/wallet');
+      },
+      getFromTransactionHash: function (txHash) {
+        return $http.get(baseURL+'/wallet/tx/'+txHash);
+      }
     }
-  }
-}]);
+  }]);
