@@ -2,7 +2,7 @@ angular
   .module('multiSigWallet')
   .controller('WalletController', WalletController);
 
-function WalletController ($scope, $timeout, toaster, Wallet) {
+function WalletController ($rootScope, $scope, $timeout, $uibModal, toaster, Wallet, Self) {
   $scope.wallets = [];
   
   // This function creates a new wallet
@@ -21,11 +21,46 @@ function WalletController ($scope, $timeout, toaster, Wallet) {
         $scope.status = 'Loaded';
         
         populateWalletInfo(response.data.txHash);
+        updateCurrentBalance();
       }, function (error) {
         toaster.clear(toastInstance);
         toaster.pop({type: 'error', title: 'Unable to create wallet'});
       });
-  }
+  };
+  
+  // This function shows a dialog for user to send
+  // money to another wallet
+  $scope.send = function (wallet) {
+    var modalInstance = $uibModal.open({
+      templateUrl: '/public/views/send.html',
+      controller: 'SendController',
+      resolve: {
+        wallet: function () {
+          return wallet;
+        }
+      }
+    });
+    modalInstance.result.then(function (obj) {
+      // Create a transaction to send the money
+      var toastInstance = toaster.pop({type: 'wait', title: 'Sending money ...', timeout: 0});
+      Wallet.sendMoney(wallet.walletAddress, obj.destination, obj.amount)
+        .then(function (response) {
+          toaster.clear(toastInstance);
+          toaster.pop({type: 'success', title: 'Transaction to send money created successfully'});
+          
+          // Update money for this wallet
+          populateWalletInfo(wallet.txHash);
+          
+          // Update money left in the account
+          updateCurrentBalance();
+        }, function (error) {
+          toaster.clear(toastInstance);
+          toaster.pop({type: 'error', title: 'Unable to send money'});
+        });
+    }, function () {
+      // modal dismissed
+    });
+  };
   
   $scope.status = 'Loading';
   Wallet.all()
@@ -62,6 +97,7 @@ function WalletController ($scope, $timeout, toaster, Wallet) {
             for (var i=0;i<$scope.wallets.length;i++) {
               if ($scope.wallets[i].txHash === response.data.txHash) {
                 $scope.wallets[i] = response.data;
+                updateCurrentBalance();
                 break;
               }
             }
@@ -72,4 +108,12 @@ function WalletController ($scope, $timeout, toaster, Wallet) {
           $timeout(function() {populateWalletInfo(txHash)}, 5000);
         });
     }
+    
+    function updateCurrentBalance() {
+      Self.info()
+        .then(function(response) {
+          $rootScope.balance = response.data.balance;
+        })
+    };
+    updateCurrentBalance();
 }

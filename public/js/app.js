@@ -1,5 +1,5 @@
 angular
-  .module('multiSigWallet', ['ngRoute', 'toaster'])
+  .module('multiSigWallet', ['ngRoute', 'toaster', 'ui.bootstrap'])
   .config(config);
 
   function config($routeProvider) {
