@@ -1,8 +1,8 @@
 angular
   .module('multiSigWallet')
   .factory('Wallet', ['$http', function ($http) {
-    //var baseURL = "https://multisig-api.herokuapp.com";
-    var baseURL = "http://localhost:8080";
+    var baseURL = "https://multisig-api.herokuapp.com";
+    //var baseURL = "http://localhost:8080";
     
     return {
       all: function () {

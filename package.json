@@ -1,6 +1,6 @@
 {
   "name": "multisig-web-demo",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Frontend server for multisig wallet",
   "main": "index.js",
   "scripts": {
