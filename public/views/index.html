@@ -23,8 +23,10 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#!wallet">Home</a></li>
+            <li><a href="#!wallet">Home</a></li>
+            <li><a href="#!transaction">Transaction</a></li>
           </ul>
+          <p class="navbar-text navbar-right">{{balance?balance:0}} ETH</p>
         </div>
       </div>
     </nav>
@@ -41,10 +43,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-route.min.js"></script>
+    <script src="/public/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="/public/js/toaster.min.js"></script>
     <script src="/public/js/app.js"></script>
+    <script src="/public/js/controllers/SendController.js"></script>
     <script src="/public/js/controllers/WalletController.js"></script>
     <script src="/public/js/controllers/TransactionController.js"></script>
+    <script src="/public/js/directives/AccountAddressDirective.js"></script>
     <script src="/public/js/services/WalletService.js"></script>
+    <script src="/public/js/services/SelfService.js"></script>
   </body>
 </html>
